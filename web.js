@@ -1,6 +1,7 @@
 var react = require('react')
 var express u= require('express')
 var path = require('path')
+var fs = require('fs')
 var jsx = require('node-jsx')
 var port = process.env.PORT || 5000; 
 var app = express();
@@ -12,8 +13,13 @@ r.get('/', function(req, res) {
         res.send(react.renderToString(react.createElement(component, props)));
 });
 
+r.get('/about', function(req, res) {
+        var data = fs.readFileSync('index.html');
+        res.send(JSON.stringify(data));
+});
+
 r.get('/user', function(req, res) {
-        var conn = 
+        
 });
 
 app.use('/', r);
