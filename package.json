@@ -1,0 +1,19 @@
+{
+   "name": "bucket",
+   "version": "0.0.1",
+   "description": "",
+   "main": "web.js",
+   "directories": {
+
+   "private": false,
+   "repository": {
+           "url": "https://github.com/AkhilHector/bucket"
+   }
+   "dependencies": {
+           "express",
+           "clusterpoint",
+           "react",
+           "node-jsx"
+   }
+  "license": "BSD",
+}
