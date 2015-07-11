@@ -7,9 +7,14 @@ var app = express();
 var r = express.Router();
 
 r.get('/', function(req, res) {
-        res.send("Lets start");
+        var component = require(path.resolve(req.query.module));
+        var props = JSON.parse(req.query.props || '{}');
+        res.send(react.renderToString(react.createElement(component, props)));
 });
 
+r.get('/user', function(req, res) {
+        var conn = 
+});
 
 app.use('/', r);
 
