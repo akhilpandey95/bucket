@@ -2,6 +2,7 @@ var React = require('react');
 var express = require('express');
 var path = require('path');
 var fs = require('fs');
+var bcrypt
 var errorPage = fs.readFileSync("./404.html");
 require('node-jsx').install();
 var cookieParser = require('cookie-parser');
