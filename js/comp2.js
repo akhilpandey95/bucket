@@ -17,7 +17,7 @@ var CrossButton = React.createClass({
         return (
         <span data-toggle="tooltip" title="Delete" 
             className="fa fa-times cross" aria-hidden="true"
-            onClick={this.props.removeaction.bind(null, this)}>
+            onClick={this.props.removeaction.bind(this, this.props.keyy)}>
         </span>
         );
     }
@@ -50,9 +50,10 @@ var LinkText = React.createClass({
 
 var LinkPrefixerEdit = React.createClass({
     render: function() {
+
         return(
                 <div className=" col-md-offset-1 col-md-1">
-                    <CrossButton removeaction={this.props.removeaction}/>
+                    <CrossButton keyy={this.props.keyy} removeaction={this.props.removeaction}/>
                     <LinkImage url={this.props.url} />
                 </div>
         );
@@ -74,7 +75,7 @@ var Stuff = React.createClass({
         if(this.props.EditMode) {
             return (
             <div className="row">
-                <LinkPrefixerEdit removeaction={this.props.removeaction} url={this.props.thing.url}/>
+                <LinkPrefixerEdit keyy={this.props.keyy} removeaction={this.props.removeaction} url={this.props.thing.url}/>
                 <LinkText url={this.props.thing.url} meta={this.props.thing.url} />
             </div> 
         );
@@ -99,7 +100,7 @@ var StuffListEdit = React.createClass({
     var de = this.props.del;
 
         things.map(function(item, index) {
-            rows.push(<Stuff thing={item} key={index} EditMode={editmode} removeaction={de}/>);
+            rows.push(<Stuff thing={item} keyy={index} EditMode={editmode} removeaction={de}/>);
         });
 
     return (
@@ -160,11 +161,13 @@ var EditMode = React.createClass({
           this.setState({title: ""});
     },
 
-    handleDelete : function(thing) {
+    handleDelete : function(index) {
         var things = this.state.data;
-        things.pop(thing);
-        this.setState({data: things});
+        if (index > -1) {
+            things.splice(index, 1);
+        }
         
+        this.setState({data: things});   
     },
     getInitialState: function() {
         return this.props.state;
@@ -178,8 +181,7 @@ var EditMode = React.createClass({
                 return (
                         <div className="commentBox">
                           <div className="row">
-                            <span data-toggle="tooltip" title="Delete"  className="col-md-offset-1 col-md-1 fa fa-times
- cross title-cross" aria-hidden="true" onClick={this.titleDeleteAction}></span>
+                            <span data-toggle="tooltip" title="Delete"  className="col-md-offset-1 col-md-1 fa fa-times cross title-cross" aria-hidden="true" onClick={this.titleDeleteAction}></span>
                             <h1 className="col-md-8"> {this.state.title} </h1>
                           </div>
                           <InputForm onCommentSubmit={this.handleCommentSubmit}/>
@@ -241,6 +243,16 @@ var InputForm = React.createClass({
     if (!text) {
       return;
     }
+    if (!text.match(/^[a-zA-Z]+:\/\//))
+    {   
+        text = 'http://' + text;
+    }
+      
+      if(!/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/.test(text)){
+      alert('The entered URL is not valid');
+          return;
+      }
+    
     this.props.onCommentSubmit({url: text, meta: text});
     React.findDOMNode(this.refs.inp).value = '';
   },
@@ -298,11 +310,8 @@ var ViewMode = React.createClass({
 var Controller = React.createClass({
     getInitialState: function() {
         return {
-            data: [{
-                "url" : "http://www.google.com",
-                "meta" : "metaaaa",
-                }],
-            title : "qwerty",
+            data: [],
+            title : "",
             bucket_id : false,
             editmode : true,
         };
