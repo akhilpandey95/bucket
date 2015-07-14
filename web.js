@@ -36,8 +36,6 @@ r.get('/signup', function(req, res) {
 r.post('/controller/login', function(req, res) {
         var username = req.body.email;
         var password = req.body.password;
-        var html = 'Hello: ' + username + '.<br>' +
-                   'Your Password' + password  + '.<br>' +                                         '<a href="/">Try again.</a>';
         res.send(html);
 });
 
@@ -46,8 +44,6 @@ r.post('/controller/signup', function(req, res) {
         var email = req.body.email;
         var pwd = req.body.password;
         var confirm_pwd = req.body.password_confirm;
-        var html = 'Email: ' + email + '.<br>' +
-                  'Your Password' + pwd  + '.<br>' +                                           '<a href="/signup">Try again.</a>';
         res.send(html);
 });
 
