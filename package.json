@@ -1,19 +1,22 @@
 {
-   "name": "bucket",
-   "version": "0.0.1",
-   "description": "",
-   "main": "web.js",
-   "directories": {
-
-   "private": false,
-   "repository": {
-           "url": "https://github.com/AkhilHector/bucket"
-   }
-   "dependencies": {
-           "express",
-           "clusterpoint",
-           "react",
-           "node-jsx"
-   }
-  "license": "BSD",
+  "name": "bucket",
+  "version": "0.0.1",
+  "description": "This is basically a link sharing web application that uses Rethinkdb as the database and technologies involved are React Js,Rethinkdb and Node Js.",
+  "main": "web.js",
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AkhilHector/bucket"
+  },
+  "author": "Akhil Pandey, Om Bhallamudi, Sai teja, Abhijith Gururaj",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/AkhilHector/bucket/issues"
+  }
 }

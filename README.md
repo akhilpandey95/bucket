@@ -1,10 +1,10 @@
-bucket
-======
+b : Bucket
+==========
 
-This is basically a link sharing web application that uses the clusterpoint DBaaS as the backend and technologies involved are : 
+This is basically a link sharing web application that uses Rethinkdb as the database and technologies involved are : 
 
 * React Js 
-* Clusterpoint 
+* Rethinkdb
 * Node Js
 
 ### Approach
