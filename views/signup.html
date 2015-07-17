@@ -12,51 +12,55 @@
    
 </head>
 <body>
-	<form class="form-horizontal" action="" method="POST">
-  <fieldset>
+	<form onsubmit="return myFunction()" action="/controller/signup" method="POST">
     <div id="legend">
       <legend class="">Register</legend>
     </div>
-    <div class="control-group">
-      <label class="control-label"  for="username">Username</label>
-      <div class="controls">
-        <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+      
+      <div class="container">
+      <div class="col-md-4">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="" class="form-control" required>
         <p class="help-block">Username can contain any letters or numbers, without spaces</p>
-      </div>
-    </div>
- 
-    <div class="control-group">
-      <label class="control-label" for="email">E-mail</label>
-      <div class="controls">
-        <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
-        <p class="help-block">Please provide your E-mail</p>
-      </div>
-    </div>
- 
-    <div class="control-group">
-      <label class="control-label" for="password">Password</label>
-      <div class="controls">
-        <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
-        <p class="help-block">Password should be at least 4 characters</p>
-      </div>
-    </div>
- 
-    <div class="control-group">
-      <label class="control-label"  for="password_confirm">Password (Confirm)</label>
-      <div class="controls">
-        <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="input-xlarge">
-        <p class="help-block">Please confirm password</p>
-      </div>
-    </div>
- 
-    <div class="control-group">
-      <div class="controls">
-        <button class="btn btn-success">Register</button>
-      </div>
-    </div>
-  </fieldset>
-</form>
+        <br>
 
+      <label for="email">E-mail</label>
+        <input type="text" id="email" name="email" class="form-control" placeholder="" required>
+        <p class="help-block">Please provide your E-mail</p>
+        <br>
+      </div>
+      </div>
+
+      <div class="container">
+      <div class="col-md-4">
+      <label for="password">Password</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="" required>
+        <p class="help-block">Password should be at least 4 characters</p>
+      <br>
+      
+      <label for="password_confirm">Password (Confirm)</label>
+        <input type="password" id="password_confirm" name="password_confirm" class="form-control" placeholder="" required>
+        <p class="help-block">Please confirm password</p>
+      <br>
+      
+        <input type="submit" value="Submit" class="btn btn-success">
+      </div>
+      </div>
+</form>
+    <script type="text/javascript">
+      function myFunction() {
+        var pass1 = document.getElementById("password").value;
+        var pass2 = document.getElementById("password_confirm").value;
+        var ok = true;
+        if (pass1 != pass2) {
+            document.getElementById("password").style.borderColor = "#E34234";
+            document.getElementById("password_confirm").style.borderColor = "#E34234";
+            ok = false;
+        }
+        return ok;
+}
+
+    </script>
    
     <script src="js/comp2.js" type="text/jsx"></script>
     <script src="js/jquery-2.1.1.js"></script>

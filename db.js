@@ -1,45 +1,80 @@
-var r = require('rethinkdb')
-var assert = require('assert')
+var r = require('rethinkdb'),
+    db = require('./config').rdb,
+    useConnPooling = false,
+    connectionPool = null;
+    util = require('util'),
+    assert = require('assert');
 
-function call(callback) {
-        r.connect{(
-                host : 'localhost',
-                port : 28015
+function connection(callback) {
+        if(useConnpooling) {
+                console.log("[LOG_INFO] Initiating a pooled connection");
+                connectionPool.acquire(function(err, conn) {
+                        if(err) {
+                                callback(err);
+                        }
+                        else {
+                                console.log("[LOG_INFO] Connection Pooled %s", conn._id);
+                        }
+                });
+        }
+        else {
+                r.connect({
+                        host : db.host,
+                        port : db.port
                 }, function(err, conn) {
-                assert.ok(err == null, err);
-                callback(err, conn);
+                        console.log("[ERR] Couldnot connect %s on %s port", db['host'], db['port']);
+                        callback(err);
+                }
+                else {
+                        conn.use(db.db);
+                        console.log("[DB] Connection created");
+                        callback(null, conn);
+                }
                 });
 }
 
-function rethinkdb(conn) {
-	var conn = 
-	r.connect({
-		host : 'localhost',
-		port : 28015,
-		authkey : ''
-	}, function(err, conn) {
-		if(err) throw err;
-		console.log("Rethinkdb Server started");
-	});
+function free(conn) {
+        console.log("[LOG-INFO]: Releasing connection: %s", conn._id);
+        if(useConnPooling) {
+                connectionPool.release(conn);
+        }
+        else {
+                conn.close();
+        }
 }
 
-rethinkdb.insert = function(conn) {
+exports.login = function(conn) {
 	console.log("insert function");
 }
 
-rethinkdb.pluck = function(conn) {
+exports.signup = function(conn) {
 	console.log("search function");
 }
 
-rethinkdb.login_fetch = function(opt) {
-	r.table("login", {useOutdated: true}).filter({
-	"username": opt.username,
-	"hash": opt.hash
-}).run(conn, function(err, res) {
-                if(err) throw err;
-                console.log(res);
-        });
-}
+exports.fetchAll = function(call) {
+	connection(function(err, conn) {
+            if(err) {
+                    return callback(err);
+            }
+
+            r.table('login').run(conn, function(err, res) {
+                if(err) {
+                        free(conn);
+                        return callback(err);
+                }
+
+                res.toArray(function(err, data) {
+                    if(err) {
+                        callback(err);
+                    }
+                    else {
+                        callback(null, data);
+                    }
+                    free(conn);
+                });
+            });
+        })
+};
 
 call(function(err, conn) {
         if(err) throw err;
@@ -64,8 +99,4 @@ call(function(err, conn) {
                 console..log(res);
         });
 });
-
-module.exports.rethinkdb = rethinkdb;
-module.exports.insert = rethinkdb.insert;
-module.exports.login_fetch = rethinkb.login_fetch;
 

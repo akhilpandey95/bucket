@@ -1,8 +1,8 @@
-var React = require('react');
+var http = require('http');
+var React =require('react');
 var express = require('express');
-var path = require('path');
 var fs = require('fs');
-var bcrypt
+var bcrypt = require('bcrypt');
 var errorPage = fs.readFileSync("./404.html");
 require('node-jsx').install();
 var cookieParser = require('cookie-parser');
@@ -29,13 +29,14 @@ r.get('/about', function(req, res) {
 });
 
 r.get('/signup', function(req, res) {
-        var data = fs.readFileSync("signup.html", "utf-8");
+        var data = fs.readFileSync("views/signup.html", "utf-8");
         res.send(data.toString());
 });
 
 r.post('/controller/login', function(req, res) {
         var username = req.body.email;
         var password = req.body.password;
+        var hash = bcrypt.compareSync(password, salt);
         res.send(html);
 });
 
@@ -48,7 +49,7 @@ r.post('/controller/signup', function(req, res) {
 });
 
 r.get('*', function(req, res) {
-        var match = 'assets/templates' + req.params[0]+ ".html";
+        var match = 'views/' + req.params[0]+ ".html";
         fs.exists(match, function(exists) {
                 if(exists) {
                         fs.readFile(match, function(err, d) {
@@ -66,6 +67,6 @@ r.get('*', function(req, res) {
 
 app.use('/', r);
 
-app.listen(port, function() { 
+http.createServer(app).listen(port, function() {
         console.log("Listening on port 5000");
-});
+})
