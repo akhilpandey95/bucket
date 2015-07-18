@@ -1,17 +1,17 @@
-var http = require('http');
-var React =require('react');
-var express = require('express');
-var fs = require('fs');
-var bcrypt = require('bcrypt');
-var errorPage = fs.readFileSync("./404.html");
+var http = require('http'),
+    React =require('react'),
+    express = require('express'),
+    fs = require('fs'),
+    bcrypt = require('bcrypt'),
+    errorPage = fs.readFileSync("./404.html"),
+    cookieParser = require('cookie-parser'),
+    bodyParser = require('body-parser');
+
+var port = process.env.PORT || 5000,
+    app = express(),
+    r = express.Router();
+
 require('node-jsx').install();
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-
-var port = process.env.PORT || 5000; 
-var app = express();
-var r = express.Router();
-
 app.use(express.static('assets'));
 app.set('title', "Bucket Sharing");
 app.use(cookieParser());

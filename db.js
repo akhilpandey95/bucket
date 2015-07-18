@@ -44,20 +44,46 @@ function free(conn) {
 }
 
 exports.login = function(conn) {
-	console.log("insert function");
+	console.log("foo has to login");  // login functionality
 }
 
 exports.signup = function(conn) {
-	console.log("search function");
+	console.log("bar has to signup"); // signup functionality
 }
 
-exports.fetchAll = function(call) {
+exports.acc2email = function(email, callback) {
+        connection(function(err, conn) {
+                if(err) {
+                        return callback(false);
+                }
+                
+                r.table('mainaccounts').filter({email: email}).limit(1).run(conn, function(err, res) {
+                        if(err) {
+                                console.log("[LOG_ERR] Unable to filter %s, reason is \n %s", err.name, err.message);
+                                callback(false);
+                        }
+                        res.next(function(err, data) {
+                                if(err) {
+                                        console.log("[LOG_ERR] Unable to filter the next account %s since %s", err.name, err.message);
+                                        callback(false);
+                                }
+                                else {
+                                        callback(data);
+                                }
+                                release(conn);
+                        });
+                }
+                )
+        });
+}
+
+exports.fetchAll = function(callback) {
 	connection(function(err, conn) {
             if(err) {
                     return callback(err);
             }
 
-            r.table('login').run(conn, function(err, res) {
+            r.table('mainaccounts').run(conn, function(err, res) {
                 if(err) {
                         free(conn);
                         return callback(err);
@@ -75,6 +101,26 @@ exports.fetchAll = function(call) {
             });
         })
 };
+
+exports.delAll = function(callback) {
+        connection(function(err, conn) {
+                if(err) {
+                        return callback(err);
+                }
+                
+                r.table('mainaccounts').delete().run(conn, function(err, res) {
+                        if(err) {
+                                console.log("[LOG_ERR] Deleting records: %s", res['message']);
+                                callback(err.msg);
+                        }
+                        else {
+                                console.log("[LOG_INFO] Deleted records completely %s", res.deleted);
+                                callback(null, res.deleted);
+                        }
+                        release(conn);
+                });
+        })
+}
 
 call(function(err, conn) {
         if(err) throw err;
