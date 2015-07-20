@@ -33,6 +33,23 @@ function connection(callback) {
                 });
 }
 
+var md5 = function(string) {
+        return crypto.createHash('md5').update(string).digest('hex');
+}
+
+var salthash = function(pass, callback)
+{
+        var salt = generateSalt();
+        callback(salt + md5(pass + salt));
+}
+
+var validate = function(normalpassword, hashedpass, callback)
+{
+        var salt = hashedpass.substr(0, 10);
+        var validhash = salt + md5(normalpassword + salt);
+        callback(null, hashedpass === validhash);
+}
+
 function free(conn) {
         console.log("[LOG-INFO]: Releasing connection: %s", conn._id);
         if(useConnPooling) {
@@ -43,8 +60,49 @@ function free(conn) {
         }
 }
 
-exports.login = function(conn) {
-	console.log("foo has to login");  // login functionality
+exports.login = function(user, pass, callback) {
+        console.log("Login Instance Created : {%s, %s}", user);
+
+        connection(function(err, conn) {
+                if(err) {
+                        console.log("[LOG_ERR]: %s:%s", err.name, err.message);
+                        callback(null);
+                        return;
+                }
+                
+                r.table('mainaccounts').filter({user: user}).limit(1).run(conn, function(err, res) {
+                        if(err) {
+                                console.log("[LOG_ERR] %s:%s", err.name, err.message);
+                                callback(null);
+                        }
+                        else {
+                                if(res.hasNext()) {
+                                        res.next(function(err, val) {
+                                                if(err) {
+                                                        console.log("[LOG_ERR] %s:%s", err.name, err.message);
+                                                        release(conn);
+                                                }
+                                                else {
+                                                        validate(pass, val.pass, function(err, data) {
+                                                                if(res) {
+                                                                        callback(null, val);
+                                                                }
+                                                                else {
+                                                                        callback('invalid-password');
+                                                                }
+                                                                release(conn);
+                                                        });
+                                                }
+                                        });
+                                }
+                                else {
+                                        console.log("[LOG_INFO] User not found %s", user);
+                                        callback('user-notfound');
+                                        release(conn);
+                                }
+                        }
+                });
+        });
 }
 
 exports.signup = function(conn) {
