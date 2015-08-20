@@ -1,8 +1,8 @@
 var r = require('rethinkdb'),
-db = require('./config').rdb,
-useConnPooling = false,
-connectionPool = null,
-assert = require('assert');
+    db = require('./config').rdb,
+    useConnPooling = false,
+    connectionPool = null,
+    assert = require('assert');
 
 function connection(callback) {
     if(useConnpooling) {
@@ -142,8 +142,15 @@ exports.login = function(user, pass, callback) {
 });
 }
 
-exports.signup = function(conn) {
-    console.log("bar has to signup"); // signup functionality
+exports.signup = function(data, callback) {
+    connection(function(err, conn) {
+            if(err) {
+                    console.log("[LOG_ERR] Could not add %s", err.message);
+                    callback(err);
+                    return;
+            }
+            
+            r.table("mainaccounts").filter(function(res) { return r.or(res('user').eq(data('user'))))))
 }
 
 exports.acc2email = function(email, callback) {
