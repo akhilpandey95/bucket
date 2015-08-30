@@ -15,7 +15,7 @@ var getTitle = function(url) {
 var CrossButton = React.createClass({
     render: function() {
         return (
-        <span data-toggle="tooltip" title="Delete" 
+        <span data-toggle="tooltip" title="Delete"
             className="fa fa-times cross" aria-hidden="true"
             onClick={this.props.removeaction.bind(null, this)}>
         </span>
@@ -39,7 +39,7 @@ var LinkText = React.createClass({
             <div className="col-md-7">
                 <div className="row">
                     <div className="col-md-12">
-                        <a className="link" href={this.props.url}>{this.props.url}</a>
+                        <a className="link" href={this.props.url} target="_blank">{this.props.url}</a>
                         <h4> {this.props.meta}</h4>
                     </div>
                 </div>
@@ -61,7 +61,7 @@ var LinkPrefixerEdit = React.createClass({
 
 var LinkPrefixerView = React.createClass({
     render: function() {
-        return( 
+        return(
             <div className=" col-md-offset-1 col-md-1">
                 <LinkImage url={this.props.url} />
             </div>
@@ -76,14 +76,14 @@ var Stuff = React.createClass({
             <div className="row">
                 <LinkPrefixerEdit removeaction={this.props.removeaction} url={this.props.thing.url}/>
                 <LinkText url={this.props.thing.url} meta={this.props.thing.url} />
-            </div> 
+            </div>
         );
     } else {
             return (
             <div className="row">
                 <LinkPrefixerView url={this.props.thing.url}/>
                 <LinkText url={this.props.thing.url} meta={this.props.thing.url} />
-            </div> 
+            </div>
         );
     }
 
@@ -91,7 +91,7 @@ var Stuff = React.createClass({
 });
 
 var StuffListEdit = React.createClass({
-  
+
   render: function() {
     var rows = [];
     var things = this.props.data;
@@ -105,13 +105,13 @@ var StuffListEdit = React.createClass({
     return (
             <div transitionName="example" className="container-fluid link-container">
                    {rows}
-            </div>       
+            </div>
     );
   }
 });
 
 var StuffList = React.createClass({
-  
+
   render: function() {
     var rows = [];
     var things = this.props.data;
@@ -126,7 +126,7 @@ var StuffList = React.createClass({
     return (
             <div transitionName="example" className="container-fluid link-container">
                    {rows}
-            </div>       
+            </div>
     );
   }
 });
@@ -164,7 +164,7 @@ var EditMode = React.createClass({
         var things = this.state.data;
         things.pop(thing);
         this.setState({data: things});
-        
+
     },
     getInitialState: function() {
         return this.props.state;
@@ -173,7 +173,7 @@ var EditMode = React.createClass({
     render: function() {
 
         if(this.state.data.length != 0  ) {
-            
+
             if(this.state.title != "") {
                 return (
                         <div className="commentBox">
@@ -185,7 +185,7 @@ var EditMode = React.createClass({
                           <InputForm onCommentSubmit={this.handleCommentSubmit}/>
                           <SaveButton onSave={this.handleSaveSubmit} />
                           <StuffListEdit data={this.state.data} del={this.handleDelete}/>
-                          
+
                         </div>
                     );
             }
@@ -194,9 +194,8 @@ var EditMode = React.createClass({
             <div className="commentBox">
               <TitleForm onCommentSubmit={this.handleTitleSubmit}/>
               <InputForm onCommentSubmit={this.handleCommentSubmit}/>
-              <SaveButton onSave={this.handleSaveSubmit} />  
+              <SaveButton onSave={this.handleSaveSubmit} />
               <StuffListEdit data={this.state.data} del={this.handleDelete}/>
-              
             </div>
         );
     }
@@ -225,12 +224,12 @@ var SaveButton= React.createClass({
     render: function(){
         return (
           <div>
-          
+
 <button className="btn btn-primary save-btn" type="submit"  onClick={this.props.onSave}> <span className="fa fa-floppy-o"></span></button>
         </div>
         );
     }
-    
+
 });
 
 var InputForm = React.createClass({
