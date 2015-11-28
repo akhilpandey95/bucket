@@ -10,11 +10,15 @@ String.prototype.startswith = function(string) {
         return(this.indexOf(string) == 0);
 }
 
+String.prototype.stringhas = function(string) {
+        return(this.indexOf(string) == -1);
+}
+
 module.exports.router = function() {
 		var port = process.env.PORT || 5000,
-	            app = express(),
-	            r = express.Router(),
-	            errorPage = fs.readFileSync("./404.html");
+                    app = express(),
+                    r = express.Router(),
+                    errorPage = fs.readFileSync("./404.html");
 
 		require('node-jsx').install();
 		app.use(express.static('assets'));
@@ -53,21 +57,22 @@ module.exports.router = function() {
 		        res.send(html);
 		});
 
-                r.post('/controller/bucket', function(req, res) {
-                        res.send("thanks for entering somethign");
-                });
+        r.post('/controller/bucket', function(req, res) {
+                res.send("thanks for entering somethign");
+        });
 
-                r.get('/:value', function(req, res) {
-                        var data = req.params.value;
-                        if(data.startswith("www")) {
-                                data = "http://" + data;
-                                res.redirect(data);
-                        }
-                        else {
-                                data = "http://www." + data;
-                                res.redirect(data);
-                        }
-                });
+        r.get('/:value', function(req, res) {
+                var data = req.params.value;
+                var arr = [".com", ".org", ".gov", ".co", ".in", ".int", ".biz", ".info", ".me", ".tv", ".edu"];
+                if(data.startswith("www")) {
+                        data = "http://" + data;
+                        res.redirect(data);
+                }
+                else {
+                        data = "http://www." + data;
+                        res.redirect(data);
+                }
+        });
 
 		r.get('*', function(req, res) {
 		        var match = 'views/' + req.params[0]+ ".html";
