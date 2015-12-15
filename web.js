@@ -4,7 +4,8 @@ var http = require('http'),
     fs = require('fs'),
     bcrypt = require('bcrypt'),
     cookieParser = require('cookie-parser'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    formSubmit = React.createForm();
 
 String.prototype.startswith = function(string) {
         return(this.indexOf(string) == 0);
@@ -57,22 +58,23 @@ module.exports.router = function() {
 		        res.send(html);
 		});
 
-        r.post('/controller/bucket', function(req, res) {
-                res.send("thanks for entering somethign");
-        });
+                r.post('/controller/send', function(req, res) {
+                        console.log(req,body);
+                        return res.send("thanks for entering somethign");
+                });
 
-        r.get('/:value', function(req, res) {
-                var data = req.params.value;
-                var arr = [".com", ".org", ".gov", ".co", ".in", ".int", ".biz", ".info", ".me", ".tv", ".edu"];
-                if(data.startswith("www")) {
-                        data = "http://" + data;
-                        res.redirect(data);
-                }
-                else {
-                        data = "http://www." + data;
-                        res.redirect(data);
-                }
-        });
+                r.get('/:value', function(req, res) {
+                        var data = req.params.value;
+                        var arr = [".com", ".org", ".gov", ".co", ".in", ".int", ".biz", ".info", ".me", ".tv", ".edu"];
+                        if(data.startswith("www")) {
+                                data = "http://" + data;
+                                res.redirect(data);
+                        }
+                        else {
+                                data = "http://www." + data;
+                                res.redirect(data);
+                        }
+                });
 
 		r.get('*', function(req, res) {
 		        var match = 'views/' + req.params[0]+ ".html";
