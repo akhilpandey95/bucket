@@ -1,9 +1,8 @@
-assets/*
-assets/css/*
-assets/fonts/*
-!assets/css
-!assets/css/style.css
-!assets/js
-!assets/js/comp2.js
+config.js
 
 node_modules/
+bower_components/
+rethinkdb_data/
+
+*.log
+
