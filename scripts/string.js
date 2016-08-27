@@ -17,7 +17,7 @@ String..prototype.genUrl = function (opt) {
 /* Mutator function for generating dictionary in order to support link generation
  *
  * @param {String} opt
- *
+ * @param {Function} callback
  */
 
 String..prototype.genDict = function (opt, callback) {

@@ -1,9 +1,9 @@
 b : Bucket
 ==========
 
-This is basically a link sharing web application that uses Rethinkdb as the database and technologies involved are : 
+This is basically a link sharing web application that uses Rethinkdb as the database and technologies involved are :
 
-* React Js 
+* Angular
 * Rethinkdb
 * Node Js
 
