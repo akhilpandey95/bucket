@@ -5,3 +5,5 @@ assets/fonts/*
 !assets/css/style.css
 !assets/js
 !assets/js/comp2.js
+
+node_modules/
