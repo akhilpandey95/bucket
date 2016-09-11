@@ -1,8 +1,12 @@
+#config file
 config.js
+test.js
 
+#dependencies
 node_modules/
 bower_components/
 rethinkdb_data/
 
+#logs
 *.log
 
