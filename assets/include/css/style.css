@@ -1,0 +1,14 @@
+body {
+  background-color: #666;
+}
+
+footer {
+  margin-top: 30px;
+}
+
+#landing {
+  color: #000;
+  margin-top: 100px;
+  background-color: #E1E1E1;
+  border-radius: 20px;
+}
