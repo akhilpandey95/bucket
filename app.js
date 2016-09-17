@@ -1,3 +1,3 @@
-var app = require('./web');
+var app = require('./router');
 
-app.router();
+app.start();

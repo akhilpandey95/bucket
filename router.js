@@ -29,6 +29,11 @@ module.exports.start = function () {
 		res.sendFile('index.html')
 	})
 
+	app.use('/', r)
+
 	// all the post protocols come here
+	h.createServer(app).listen(port, function () {
+		console.log("Front end server started at http://localhost:" + port)
+	})
 }
 
