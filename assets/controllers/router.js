@@ -9,12 +9,14 @@ angular.module('bucket',
   function ($locationProvider, $stateProvider, $urlRouterProvider) {
     $stateProvider.state('home', {
       url: '/',
-      templateUrl: '/templates/home.html'
+      templateUrl: '/templates/home.html',
+      controller: 'homeCtrl'
     })
 
     .state('links', {
       url: '/links',
-      templateUrl: '/templates/links.html'
+      templateUrl: '/templates/links.html',
+      controller: 'linkCtrl'
     })
 
     $urlRouterProvider.otherwise('/')

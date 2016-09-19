@@ -4,7 +4,7 @@ test.js
 
 #dependencies
 node_modules/
-bower_components/
+assets/bower_components/
 rethinkdb_data/
 
 #logs
