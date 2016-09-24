@@ -12,3 +12,32 @@ footer {
   background-color: #E1E1E1;
   border-radius: 20px;
 }
+
+#addMe {
+  width: 600px;
+  height: 50px;
+  color: white;
+  background-color: read;
+  margin-right: 10px;
+}
+
+#links {
+  color: #000;
+  margin-top: 100px;
+  background-color: #E1E1E1;
+  border-radius: 20px;
+}
+
+
+@media only screen and (max-width: 768px) {
+  #addMe {
+    display: inline-block;
+    margin: 10px auto;
+  }
+}
+@media only screen and  (min-width: 480px) and (max-width: 1400px) {
+  #addMe {
+    display: inline-block;
+    margin: 0px auto;
+  }
+}
