@@ -10,17 +10,21 @@
  *
  */
 
-String..prototype.genUrl = function (opt) {
-	// combine
-}
+String.prototype.genStr = function () {
+ let i = 0,
+ 	str = "",
+ 	num = Math.floor(Math.random()*(Math.pow(1000, 4))).toString()
 
-/* Mutator function for generating dictionary in order to support link generation
- *
- * @param {String} opt
- * @param {Function} callback
- */
+ let store = {
+     big: ['V', 'X', 'A', 'D', 'G', 'Y', 'D', 'U', 'O', 'Q'],
+     lil: ['w', 'b', 'k', 'm', 'c', 'z', 'i', 's', 'f', 'p']
+ }
 
-String..prototype.genDict = function (opt, callback) {
-	var an = Math.floor(Math.random()*10000000)
-	var al = "abcdefghijklmnopqrstuvwxyz"
+ while(str.length < 20) {
+     let count = Number(num[i])
+     str += num[i] + store.big[count] + store.lil[count]
+     i++
+ }
+
+ return (this + str)
 }
