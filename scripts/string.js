@@ -1,30 +1,26 @@
 /*
- * Helper mutator functions
- * The MIT License
- * Akhil Pandey
- */
+* Helper mutator functions
+* The MIT License
+* Akhil Pandey
+*/
 
-/* Mutator function for generating the link
- *
- * @param {String} opt
- *
- */
+// Mutator function for generating the link
 
-String.prototype.genStr = function () {
- let i = 0,
- 	str = "",
- 	num = Math.floor(Math.random()*(Math.pow(1000, 4))).toString()
+String.prototype.genUrl = function () {
+	let i = 0,
+	str = "",
+	num = Math.floor(Math.random()*(Math.pow(1000, 4))).toString()
 
- let store = {
-     big: ['V', 'X', 'A', 'D', 'G', 'Y', 'D', 'U', 'O', 'Q'],
-     lil: ['w', 'b', 'k', 'm', 'c', 'z', 'i', 's', 'f', 'p']
- }
+	let store = {
+		big: ['V', 'X', 'A', 'D', 'G', 'Y', 'D', 'U', 'O', 'Q'],
+		lil: ['w', 'b', 'k', 'm', 'c', 'z', 'i', 's', 'f', 'p']
+	}
 
- while(str.length < 20) {
-     let count = Number(num[i])
-     str += num[i] + store.big[count] + store.lil[count]
-     i++
- }
+	while(str.length < 20) {
+		let count = Number(num[i])
+		str += num[i] + store.big[count] + store.lil[count]
+		i++
+	}
 
- return (this + str)
+	return (this + str)
 }
