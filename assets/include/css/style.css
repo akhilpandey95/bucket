@@ -6,6 +6,44 @@ footer {
   margin-top: 30px;
 }
 
+textarea,input[type=search],input[type=text]{
+	height:20px;
+	width: 780px;
+	border-style:solid;
+    border-bottom-color: #999;
+    border-left-color: #fff;
+    border-right-color: #fff;
+    border-top-color: #fff;
+	border-width:0.1px;
+	font-size: auto;
+	font-family:'Open Sans', sans-serif;
+	padding:3.3333333333333px 6.6666666666667px;
+	-moz-border-radius:3px;
+	border-radius:1px;
+	-webkit-transition:all linear .1s;
+	-moz-transition:all linear .1s;
+	-o-transition:all linear .1s;
+	-ms-transition:all linear .1s;
+	transition:all linear .1s
+}
+
+textarea{
+	height:auto
+}
+
+textarea:focus,input[type=search]:focus,input[type=text]:focus,input.focus{
+	border-bottom-color:#42a4e0;
+    border-top-color: #fff;
+    border-left-color: #fff;
+    border-right-color: #fff;
+    border-width: 3px;
+	-webkit-transition:all linear .1s;
+	-moz-transition:all linear .1s;
+	-o-transition:all linear .1s;
+	-ms-transition:all linear .1s;
+	transition:all linear .1s
+}
+
 #landing {
   color: #000;
   margin-top: 100px;
@@ -16,7 +54,6 @@ footer {
 #addMe {
   width: 600px;
   height: 50px;
-  color: white;
   background-color: read;
   margin-right: 10px;
 }

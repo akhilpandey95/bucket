@@ -2,16 +2,14 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="jumbotron" id="links">
-        <center><img src="../include/img/icon.jpg" width="100" height="100">
-        <br>
-        <h2>Bucket</h2><h5>Start adding !</h5>
+        <center><img src="../include/img/icon.jpg" width="80" height="80">
+            <h5>Start adding !</h5>
         </center>
         <br />
         <center>
-          <form>
-            <input type="search" id="addMe" ng-model="links.url"/>
-            <button class="btn btn-lg btn-info buffButton"><span class="fa fa-link"></span></button>
-            <button class="btn btn-lg btn-success addButton"><span class="fa fa-floppy-o"></span></button>
+          <form ng-init="focusInput()" ng-submit="clear()">
+            <input type="search" id="addMe" ng-model="enteredLink"/>
+            <input type="submit" ng-click ="submit()" class="btn btn-lg btn-success addButton" value="Add">
           </form>
         </center>
       </div>
@@ -26,6 +24,7 @@
         <center>
         <br>
         <h2 style="margin-top: -10px;">Links</h2><h5>Start sharing !</h5>
+        <span ng-repeat ="url in urls"><a href={{url}} target="_blank">{{url}}</a> <br /> </span>
         </center>
       </div>
     </div>
