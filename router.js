@@ -9,7 +9,7 @@ const h = require('http'),
 	  b = require('body-parser'),
 	  c = require('cookie-parser');
 
-module.exports.start = function () {
+module.exports.start = () => {
 	var port = process.env.PORT || 9999
 	var app = e()
 	var r = e.Router()
@@ -25,15 +25,23 @@ module.exports.start = function () {
 		next()
 	})
 
-	r.get('/', function (req, res, next) {
+	r.get('/', (req, res, next) => {
 		res.sendFile('index.html')
+	})
+
+	r.get('/link/:value', (req, res, next) => {
+		let url = req.params.value.toString()
+
+		if(!url.startsWith('http') || !url.startsWith('https')) {
+			url = "https://" + url
+			res.redirect(url)
+		}
 	})
 
 	app.use('/', r)
 
 	// all the post protocols come here
-	h.createServer(app).listen(port, function () {
+	h.createServer(app).listen(port, () => {
 		console.log("Front end server started at http://localhost:" + port)
 	})
 }
-
